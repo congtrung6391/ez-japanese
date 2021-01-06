@@ -37,7 +37,7 @@ class Screen extends React.Component {
       return name;
     })
     .catch(() => {
-      return name
+      return '';
     });
     return name;
   }

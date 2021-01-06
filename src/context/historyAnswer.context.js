@@ -36,9 +36,6 @@ class HistoryAnswerProvider extends React.Component {
     const numAns = Math.min(20, answers.length+1);
     const lastAnswer = answers.length >= 20 ? answers[answers.length-20] : {ans: 1, res: 0, time: 0};
 
-    console.log(answer);
-    console.log(answers[0]);
-
     sumAcc += (answer.ans === answer.res ? 1 : 0) - (lastAnswer.ans === lastAnswer.res ? 1 : 0);
     sumTime += answer.time - lastAnswer.time;
     const averAcc = sumAcc / numAns;

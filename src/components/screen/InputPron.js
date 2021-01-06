@@ -4,7 +4,6 @@ import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
 const InputPron = (props) => {
   const [inputAnswer, setInputAnswer] = useState('');
   const { onSubmit, disable } = props;
-  console.log(disable);
 
   const submitHandler = (event) => {
     event.preventDefault();
