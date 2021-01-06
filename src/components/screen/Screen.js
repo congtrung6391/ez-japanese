@@ -29,10 +29,10 @@ class Screen extends React.Component {
   }
 
   getCodeName = async (code) => {
-    const name = await axios.get(`http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=${code}&mode=hex`)
+    const name = await axios.get(`https://www.utf8-chartable.de/unicode-utf8-table.pl?start=${12353 + code}&number=1&view=3`)
     .then(res => {
       var doc = new DOMParser().parseFromString(res.data, 'text/html');
-      let name = doc.querySelectorAll('td')[3].childNodes[0].nodeValue;
+      let name = doc.getElementsByClassName('name')[0].childNodes[0].nodeValue;
       name = name.substring(name.lastIndexOf(' ')+1).toLowerCase();
       return name;
     })
@@ -43,15 +43,15 @@ class Screen extends React.Component {
   }
 
   generateNewWord = async () => {
-    const startCode = 3041;
-    const endCode = 3093;
-    const code = Math.round(Math.random()*(endCode-startCode+1)) + startCode;
+    const startCode = parseInt('3041', 16);
+    const endCode = parseInt('3093', 16);
+    const codeNumber = Math.round(Math.random()*(endCode-startCode+1));
+    const code = (codeNumber + startCode).toString(16);
 
     const fontId = Math.round(Math.random()*3) + 0;
     const font = this.fonts[fontId];
 
-    const codeName = await this.getCodeName(code);
-    console.log(codeName);
+    const codeName = await this.getCodeName(codeNumber);
 
     this.setState({ code, font, answer: { ans: '', res: codeName} });
   }
