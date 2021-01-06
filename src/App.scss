@@ -1,5 +1,18 @@
 .App {
+  min-height: 100vh;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.App .layout {
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 800px){
+    flex-direction: column;
+  }
 }
 
 .App-logo {
@@ -35,4 +48,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.wrong-bg {
+  border: 1px solid #ff4d4d;
+  background-color:  #ffe6e6;
+  color: red;
+}
+
+.correct-bg {
+  border: 1px solid #4dff4d;
+  background-color: #e6ffe6;
+  color: #00cc00;
 }
