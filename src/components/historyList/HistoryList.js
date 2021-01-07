@@ -20,10 +20,10 @@ class HistoryList extends React.Component {
                         <th className="text-center">Your</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody style={{ alignItems: 'start' }}>
                       {
-                        answers.map((answer, id) => {
-                          if (id < answers.length - 10) {
+                        answers.reverse().map((answer, id) => {
+                          if (id > 9) {
                             return null;
                           }
                           return (
@@ -32,7 +32,7 @@ class HistoryList extends React.Component {
                               className={`${answer.res === answer.ans ? 'correct-bg' : 'wrong-bg'} border-0`}
                               style={{
                                 backgroundColor: 'white',
-                                borderTop: `${id > answers.length - 10 && id < answers.length ? '2px solid gray' : ''}` 
+                                borderTop: `${id > 0 && id < 9 ? '2px solid gray' : ''}` 
                               }}
                             >
                               <td className="text-center py-1" style={{ fontSize: '150%', borderRight: '1px solid gray' }}>{answer.word}</td>

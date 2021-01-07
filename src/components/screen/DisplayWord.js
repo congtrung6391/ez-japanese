@@ -8,7 +8,7 @@ const DisplayWord = (props) => {
     <div
       className={`d-flex flex-column justify-content-center ${answer.ans ? (answer.ans === answer.res ? 'correct-bg' : 'wrong-bg') : ''}`}
       style={{
-        height: '595px',
+        height: '50vh',
         maxHeight: '595px',
         textAlign: 'center', 
       }}

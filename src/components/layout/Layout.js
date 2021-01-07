@@ -8,10 +8,10 @@ class Layout extends React.Component {
     return (
       <HistoryAnswerProvider>
         <div className="layout">
-          <div className="col-md-5 mr-4 mb-4 p-0 bg-light" style={{ height: '628px' }}>
+          <div className="col-md-5 mr-4 mb-4 p-0 bg-light" style={{ height: '55vh' }}>
             <Screen />
           </div>
-          <div className="col-md-3 p-0">
+          <div className="col-md-3 p-0" style={{ minHeight: '628px' }}>
             <HistoryList />
           </div>
         </div>
