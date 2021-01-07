@@ -61,3 +61,11 @@
   background-color: #e6ffe6;
   color: #00cc00;
 }
+
+.auto-height {
+  height: 50vh;
+
+  @media screen and (max-width: 800px) {
+    height: 30vh;
+  }
+}

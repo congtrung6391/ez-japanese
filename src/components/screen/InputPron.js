@@ -7,7 +7,7 @@ const InputPron = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (!inputAnswer) return;
+    if (!inputAnswer || inputAnswer === '') return;
     onSubmit(event, inputAnswer);
     setInputAnswer('');
   }
@@ -20,7 +20,6 @@ const InputPron = (props) => {
           aria-label="pron"
           aria-describedby="pron-submit"
           value={inputAnswer}
-          readOnly={disable}
           onChange={(event) => { setInputAnswer(event.target.value.toLowerCase()); }}
         />
         <InputGroup.Prepend>

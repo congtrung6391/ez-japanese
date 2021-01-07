@@ -48,7 +48,7 @@ class Screen extends React.Component {
     await setTimeout(async () => {
       await this.generateNewWord();
       this.setState({ loading: false });
-    }, 400);
+    }, 700);
   }
 
   render() {
@@ -68,7 +68,7 @@ class Screen extends React.Component {
                   font={font}
                   answer={answer}
                 />
-                <div style={{ width: '100%', position: 'absolute', bottom: '0' }}>
+                <div style={{ height: '5vh', width: '100%', position: 'absolute', bottom: '0' }}>
                   <InputPron
                     disable={loading}  
                     onSubmit={this.submitPron}
