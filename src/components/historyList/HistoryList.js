@@ -3,13 +3,6 @@ import { Table, Button } from 'react-bootstrap';
 import { HistoryAnswerContext } from '../../context/historyAnswer.context';
 
 class HistoryList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-  }
-
   render() {
     return (
       <HistoryAnswerContext.Consumer>
@@ -42,7 +35,7 @@ class HistoryList extends React.Component {
                                 borderTop: `${id > answers.length - 10 && id < answers.length ? '2px solid gray' : ''}` 
                               }}
                             >
-                              <td className="text-center py-1" style={{ fontSize: '150%', borderRight: '1px solid gray' }}>{String.fromCharCode(parseInt(answer.code, 16))}</td>
+                              <td className="text-center py-1" style={{ fontSize: '150%', borderRight: '1px solid gray' }}>{answer.word}</td>
                               <td className="text-center" style={{ borderRight: '1px solid gray' }}>{answer.res}</td>
                               <td className="text-center">{answer.ans}</td>
                             </tr>

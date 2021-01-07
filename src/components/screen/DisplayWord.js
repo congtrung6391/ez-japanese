@@ -2,8 +2,7 @@ import React from 'react';
 import '../../App.scss';
 
 const DisplayWord = (props) => {
-  const { code, font, answer } = props;
-  const word = String.fromCharCode(parseInt(code, 16));
+  const { word, font, answer } = props;
 
   return (
     <div

@@ -28,42 +28,23 @@ class Screen extends React.Component {
     this.setState({ loading: false });
   }
 
-  getCodeName = async (code) => {
-    const name = await axios.get(`https://www.utf8-chartable.de/unicode-utf8-table.pl?start=${12353 + code}&number=1&view=3`)
-    .then(res => {
-      var doc = new DOMParser().parseFromString(res.data, 'text/html');
-      let name = doc.getElementsByClassName('name')[0].childNodes[0].nodeValue;
-      name = name.substring(name.lastIndexOf(' ')+1).toLowerCase();
-      return name;
-    })
-    .catch(() => {
-      return '';
-    });
-    return name;
-  }
-
   generateNewWord = async () => {
-    const startCode = parseInt('3041', 16);
-    const endCode = parseInt('3093', 16);
-    const codeNumber = Math.round(Math.random()*(endCode-startCode+1));
-    const code = (codeNumber + startCode).toString(16);
-
     const fontId = Math.round(Math.random()*3) + 0;
     const font = this.fonts[fontId];
 
-    const codeName = await this.getCodeName(codeNumber);
-
-    this.setState({ code, font, answer: { ans: '', res: codeName} });
+    const idx = Math.round(Math.random()*73)+1;
+    const { data } = await axios.get(`https://japanese-ez-default-rtdb.firebaseio.com/code-meaning/${idx}.json`);
+    this.setState({ word: data.word, font, answer: { ans: '', res: data.spell } });
   }
 
   submitPron = async (event, userAnswer) => {
     event.preventDefault();
     this.setState({ loading: true });
 
-    const { answer, code } = this.state;
+    const { answer, word } = this.state;
     answer.ans = userAnswer;
     this.setState({ answer });
-    this.context.addAnswer({ ...answer, code });
+    this.context.addAnswer({ ...answer, word });
     await setTimeout(async () => {
       await this.generateNewWord();
       this.setState({ loading: false });
@@ -71,7 +52,7 @@ class Screen extends React.Component {
   }
 
   render() {
-    const { code, font, answer, loading } = this.state;
+    const { word, font, answer, loading } = this.state;
 
     return (
       <HistoryAnswerContext.Consumer>
@@ -83,7 +64,7 @@ class Screen extends React.Component {
             <div>
               <div>
                 <DisplayWord
-                  code={code}
+                  word={word}
                   font={font}
                   answer={answer}
                 />
