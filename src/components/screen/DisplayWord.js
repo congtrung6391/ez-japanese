@@ -6,7 +6,11 @@ const DisplayWord = (props) => {
 
   return (
     <div
-      className={`d-flex flex-column justify-content-center text-center auto-height ${answer.ans ? (answer.ans === answer.res ? 'correct-bg' : 'wrong-bg') : ''}`}
+      className={`d-flex flex-column justify-content-center ${answer.ans ? (answer.ans === answer.res ? 'correct-bg' : 'wrong-bg') : ''}`}
+      style={{
+        minHeight: '50vh',
+        textAlign: 'center', 
+      }}
     >
       {
         !answer.ans && (

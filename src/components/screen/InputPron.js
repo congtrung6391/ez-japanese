@@ -20,6 +20,7 @@ const InputPron = (props) => {
           aria-label="pron"
           aria-describedby="pron-submit"
           value={inputAnswer}
+          readOnly={disable}
           onChange={(event) => { setInputAnswer(event.target.value.toLowerCase()); }}
         />
         <InputGroup.Prepend>
