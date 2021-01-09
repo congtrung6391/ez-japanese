@@ -1,6 +1,5 @@
 # ex-japanese
-This project is deployed by Heroku. Visit it: https://ez-japanese.herokuapp.com
-
+This project is deployed by Heroku. Visit it: https://japanese-ez.herokuapp.com
 
 Hope this s*** will help me learning Japanese faster.
 
