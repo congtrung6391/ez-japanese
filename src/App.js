@@ -5,6 +5,7 @@ import HistoryAnswerProvider from './context/historyAnswer.context';
 import NewWordProvider from './context/newWord.context';
 
 import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import NewWordCheck from './components/newWordCheck/NewWordCheck';
 import Login from './components/auth/Login';
 
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/login" component={Login} />
                 <Route path="/" component={CharacterCheck} />
               </Switch>
+              <Footer />
             </Router>
           </NewWordProvider>
         </HistoryAnswerProvider>

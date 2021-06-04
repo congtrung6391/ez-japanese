@@ -13,7 +13,7 @@ const Header = () => {
     >
       <Container>
         <Navbar.Brand href="/">
-          <h3 style={{ fontFamily: '\'Satisfy\', cursive', marginBottom: '0' }}>Let's be depressed together</h3>
+          <h3 style={{ fontFamily: '\'Satisfy\', cursive', marginBottom: '0' }}>Welcome</h3>
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
