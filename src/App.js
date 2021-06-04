@@ -9,25 +9,28 @@ import NewWordCheck from './components/newWordCheck/NewWordCheck';
 import Login from './components/auth/Login';
 
 import { createBrowserHistory } from "history";
+import AuthProvider from './context/auth.context';
 
 const customHistory = createBrowserHistory();
 
 function App() {
   return (
     <div className="App">
-      <HistoryAnswerProvider>
-        <NewWordProvider>
-          <Router history={customHistory}>
-            <Header />
-            <Switch>
-              <Route path="/character" component={CharacterCheck} />
-              <Route path="/newword" component={NewWordCheck} />
-              <Route path="/login" component={Login} />
-              <Route path="/" component={CharacterCheck} />
-            </Switch>
-          </Router>
-        </NewWordProvider>
-      </HistoryAnswerProvider>
+      <AuthProvider>
+        <HistoryAnswerProvider>
+          <NewWordProvider>
+            <Router history={customHistory}>
+              <Header />
+              <Switch>
+                <Route path="/character" component={CharacterCheck} />
+                <Route path="/newword" component={NewWordCheck} />
+                <Route path="/login" component={Login} />
+                <Route path="/" component={CharacterCheck} />
+              </Switch>
+            </Router>
+          </NewWordProvider>
+        </HistoryAnswerProvider>
+      </AuthProvider>
     </div>
   );
 }

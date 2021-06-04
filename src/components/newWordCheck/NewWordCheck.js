@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { Row, Table, InputGroup, FormControl, Button, Container } from 'react-bootstrap';
+import { Row, Table, InputGroup, FormControl, Button, Container, ListGroup } from 'react-bootstrap';
 import { NewWordContext } from '../../context/newWord.context';
 
 const NewWordList = () => {
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
+  const [searchColl, setSearchColl] = useState("");
+  const [listColl, setListColl] = useState(null);
   const context = useContext(NewWordContext);
   const { newWordList, addNewWord, addAnswer } = context;
 
@@ -14,8 +16,47 @@ const NewWordList = () => {
     setMeaning("");
   }
 
+  const onSearchColl = async () => {
+    const list = await context.searchCollection(searchColl);
+    setSearchColl("");
+    setListColl(list);
+    console.log(list);
+  }
+
   return (
     <Container>
+      <Row>
+        <InputGroup className="col-md-5 mb-0">
+          <FormControl
+            id="search-coll-input"
+            placeholder="Search collection"
+            aria-describedby="search-coll"
+            value={searchColl}
+            onChange={(event) => setSearchColl(event.target.value)}
+          />
+          <Button variant="outline-secondary" id="search-coll" onClick={onSearchColl}>
+            Search
+          </Button>
+        </InputGroup>
+        <InputGroup className="col-md-2 mb-0 ml-auto">
+          <Button onClick={() => context.makeCollection()} variant="success">Make Collections</Button>
+        </InputGroup>
+      </Row>
+      <ListGroup className="col-md-5 mb-3" as="ol" style={{ textAlign: 'left' }}>
+        {
+          listColl !== null && (
+            listColl.length === 0
+              ? (
+                <ListGroup.Item>No result</ListGroup.Item>
+              )
+              : (
+                listColl.map(coll => (
+                  <ListGroup.Item as="li" onClick={() => context.getCollection(coll[0])}>{coll[1].name}</ListGroup.Item>
+                ))
+              )
+          )
+        }
+      </ListGroup>
       <Table bordered style={{ backgroundColor: 'white' }}>
         <thead className="bg-info text-white text-capitalize">
           <tr>
@@ -29,9 +70,9 @@ const NewWordList = () => {
         </thead>
         <tbody>
           {
-            !newWordList
+            newWordList === null || newWordList.length === 0
               ? (
-                <tr><td colspan="6">No new word</td></tr>
+                <tr><td colSpan="6">No new word</td></tr>
               ) 
               : (
                 newWordList.map((word, index) => (
@@ -63,8 +104,8 @@ const NewWordList = () => {
         </tbody>
       </Table>
       <Row className="mx-0 mb-3">
-        <Button className="col-md-2 mr-3" onClick={context.shuffle} variant="info">Shuffle</Button>
-        <Button className="col-md-2" onClick={context.check} variant="success">Check</Button>
+        <Button className="col-md-1 mr-3" onClick={context.shuffle} variant="info">Shuffle</Button>
+        <Button className="col-md-1" onClick={context.check} variant="success">Check</Button>
       </Row>
       <Row>
         <InputGroup className="col-md-5 mb-3">

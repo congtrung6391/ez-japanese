@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export const NewWordContext = React.createContext();
 
@@ -12,7 +13,10 @@ class NewWordProvider extends React.Component {
       addAnswer: this.addAnswer,
       check: this.check,
       shuffle: this.shuffle,
-      checkSingle: this.checkSingle
+      checkSingle: this.checkSingle,
+      searchCollection: this.searchCollection,
+      makeCollection: this.makeCollection,
+      getCollection: this.getCollection,
     };
   }
 
@@ -80,6 +84,58 @@ class NewWordProvider extends React.Component {
       }
     })
     this.setState({ newWordList });
+  }
+
+  searchCollection = async (name) => {
+    const data = await axios.get(`https://japanese-ez-default-rtdb.firebaseio.com/collections.json?`)
+      .then(res => {
+        return res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+    const listColl = Object.entries(data).filter((coll) => coll[1].name.includes(name));
+    return listColl;
+  }
+
+  getCollection = async (id) => {
+    const data = await axios.get(`https://japanese-ez-default-rtdb.firebaseio.com/collections/${id}.json?`)
+      .then(res => {
+        return res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+    const listWord = JSON.parse(data.data);
+    this.setState({ newWordList: listWord });
+  }
+
+  makeCollection = async () => {
+    const name = prompt("Collection's name");
+
+    const { newWordList } = this.state;
+
+    if (newWordList === null || newWordList.length === 0) return;
+
+    const words = newWordList.map(word => {
+      return {
+        word: word.word,
+        answer: word.answer,
+        userAnswer: '',
+        check: null,
+      };
+    })
+    const wordsStr = JSON.stringify(words);
+
+    let data = {};
+    data = { name: name, data: wordsStr, };
+    
+    await axios.post(
+      `https://japanese-ez-default-rtdb.firebaseio.com/collections.json`,
+      data
+    );
   }
 
   render() {
