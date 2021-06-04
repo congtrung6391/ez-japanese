@@ -17,7 +17,7 @@ const Footer = () => (
     <p style={{ margin: '0' }}>
       Creater by
       {' '}
-      <a href="https://github.com/congtrung6391"><strong>AustinTr</strong></a>
+      <a href="https://github.com/congtrung6391" rel="noreferrer" target="_blank"><strong>AustinTr</strong></a>
     </p>
   </div>
 );
