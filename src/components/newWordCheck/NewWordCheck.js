@@ -56,6 +56,11 @@ const NewWordList = () => {
               )
           )
         }
+        {
+          listColl !== null && (
+            <Button variant="warning" onClick={() => setListColl(null)}>Clear</Button>
+          )
+        }
       </ListGroup>
       <Table bordered style={{ backgroundColor: 'white' }}>
         <thead className="bg-info text-white text-capitalize">
