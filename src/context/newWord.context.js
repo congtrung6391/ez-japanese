@@ -61,13 +61,13 @@ class NewWordProvider extends React.Component {
   check = () => {
     const { newWordList } = this.state;
     const res = [];
-    newWordList.forEach(word => {
-      if (word.answer === word.userAnswer) {
-        res.push(true);
-      } else {
-        res.push(false);
+    const list = newWordList.map(word => {
+      return {
+        ...word,
+        check: word.answer === word.userAnswer ? true : false,
       }
     })
+    this.setState({ newWordList: list });
     return res;
   }
 
