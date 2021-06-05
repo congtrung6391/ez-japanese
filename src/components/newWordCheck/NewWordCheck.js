@@ -23,45 +23,63 @@ const NewWordList = () => {
     console.log(list);
   }
 
+  const onGetColl = async (collId) => {
+    await context.getCollection(collId);
+  }
+
+  const onUpdateColl = async () => {
+    await context.updateCollection();
+  }
+
+
   return (
     <Container>
-      <Row>
-        <InputGroup className="col-md-5 mb-0">
+      <Row className="justify-content-between mb-3">
+        <InputGroup className="col-md-12 mb-0">
           <FormControl
+            className="col-md-5"
             id="search-coll-input"
             placeholder="Search collection"
             aria-describedby="search-coll"
             value={searchColl}
             onChange={(event) => setSearchColl(event.target.value)}
           />
-          <Button variant="outline-secondary" id="search-coll" onClick={onSearchColl}>
+          <Button className="mr-auto" variant="outline-secondary" id="search-coll" onClick={onSearchColl}>
             Search
           </Button>
-        </InputGroup>
-        <InputGroup className="col-md-2 mb-0 ml-auto">
-          <Button onClick={() => context.makeCollection()} variant="success">Make Collections</Button>
+          {
+            context.coll && (
+              <Button className="mr-2" onClick={() => onUpdateColl()} variant="warning">Update Collection</Button>
+            )
+          }
+          <Button onClick={() => context.makeCollection()} variant="success">Make Collection</Button>
         </InputGroup>
       </Row>
-      <ListGroup className="col-md-5 mb-3" as="ol" style={{ textAlign: 'left' }}>
-        {
-          listColl !== null && (
-            listColl.length === 0
-              ? (
-                <ListGroup.Item>No result</ListGroup.Item>
+      {
+        listColl !== null && (
+          <ListGroup className="col-md-5 mb-4 pr-0" as="ol" style={{ textAlign: 'left' }}>
+            <ListGroup.Item className="text-center"><strong>Result</strong></ListGroup.Item>
+            {
+              listColl !== null && (
+                listColl.length === 0
+                  ? (
+                    <ListGroup.Item>No result</ListGroup.Item>
+                  )
+                  : (
+                    listColl.map(coll => (
+                      <ListGroup.Item as="li" onClick={() => onGetColl(coll[0])}>{coll[1].name}</ListGroup.Item>
+                    ))
+                  )
               )
-              : (
-                listColl.map(coll => (
-                  <ListGroup.Item as="li" onClick={() => context.getCollection(coll[0])}>{coll[1].name}</ListGroup.Item>
-                ))
+            }
+            {
+              listColl !== null && (
+                <Button variant="warning" onClick={() => setListColl(null)}>Clear</Button>
               )
-          )
-        }
-        {
-          listColl !== null && (
-            <Button variant="warning" onClick={() => setListColl(null)}>Clear</Button>
-          )
-        }
-      </ListGroup>
+            }
+          </ListGroup>
+        )
+      }
       <Table bordered style={{ backgroundColor: 'white' }}>
         <thead className="bg-info text-white text-capitalize">
           <tr>
